@@ -6,3 +6,4 @@
 - React;
 - Typescript;
 - Redux RTK-Query;
+- Tailwind;
