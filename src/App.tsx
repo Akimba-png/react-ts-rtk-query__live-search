@@ -3,7 +3,7 @@ import { Navigation } from './components/navigation/navigation';
 import { MainPage } from './pages/main-page';
 import { FavoritesPage } from './pages/favorites-page';
 import { NotFoundPage } from './pages/not-found-page';
-import AppRoute from './const';
+import { AppRoute } from './const';
 
 function App(): JSX.Element {
   return (
