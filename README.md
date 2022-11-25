@@ -7,3 +7,6 @@
 - Typescript;
 - Redux RTK-Query;
 - Tailwind;
+
+## Паттерны:
+- debounce-хук;
