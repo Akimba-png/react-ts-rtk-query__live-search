@@ -1,17 +1,16 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { useGetUsersQuery } from './../store/reducers/search-api';
 import { useDebounce } from './../hooks/use-debounce';
 
 function MainPage(): JSX.Element {
   const [ search, setSearch ] = useState<string>('');
   const debounced = useDebounce(search);
-  const { data } = useGetUsersQuery('Akimba');
+  const { data: users, isLoading } = useGetUsersQuery(debounced, {
+    skip: debounced.length < 3
+  });
   const searchChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
     setSearch(evt.target.value);
   };
-  useEffect(() => {
-    console.log(debounced);
-  }, [debounced]);
   return (
     <main className='pt-[50px] h-[calc(100vh_-_79px)]'>
       <h1 className='mb-[40px] text-center font-bold text-2xl'>User search service</h1>
@@ -28,9 +27,21 @@ function MainPage(): JSX.Element {
            />
           </label>
         </form>
-        <ul className='max-h-[420px] overflow-y-auto border rounded'>
-          <li className='p-[4px] hover:bg-slate-100 cursor-pointer'>test</li>
-        </ul>
+        { isLoading && <p>Loading...</p>}
+        {users &&<ul className='max-h-[420px] overflow-y-auto border rounded'>
+          {
+            users.map((user) => {
+              return (
+                <li
+                  className='p-[4px] hover:bg-slate-100 cursor-pointer'
+                  key={user.id}
+                >
+                  {user.login}
+                </li>
+              );
+            })
+          }
+        </ul>}
       </section>
     </main>
   );

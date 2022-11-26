@@ -3,7 +3,7 @@ import { User, SearchResponse } from '../../types/User';
 import { ApiRoute } from '../../const';
 
 const BASE_URL = 'https://api.github.com/';
-const ITEMS_COUNT = 10;
+const ITEMS_COUNT = 15;
 
 export const searchApi = createApi({
   reducerPath: 'data/search',
