@@ -1,16 +1,29 @@
 import { useState, ChangeEvent } from 'react';
-import { useGetUsersQuery } from './../store/reducers/search-api';
-import { useDebounce } from './../hooks/use-debounce';
+import { UsersList } from './../components/users-list';
+import { ReposList } from './../components/repos-list';
 
 function MainPage(): JSX.Element {
+
   const [ search, setSearch ] = useState<string>('');
-  const debounced = useDebounce(search);
-  const { data: users, isLoading } = useGetUsersQuery(debounced, {
-    skip: debounced.length < 3
-  });
+  const [ username, setUsername ] = useState<string>('');
+  const [ isUserListOpen, setUserListStatus ] = useState<boolean>(false);
+  const [ isRepoListOpen, setRepoListStatus ] = useState<boolean>(false);
+
   const searchChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
     setSearch(evt.target.value);
+    if (evt.target.value.length === 0) {
+      setRepoListStatus(false);
+      setUserListStatus(false);
+    } else {
+      setUserListStatus(true);
+    }
   };
+
+  const usernameClickHandler = (username: string) => () => {
+    setUsername(username);
+    setRepoListStatus(true);
+  };
+
   return (
     <main className='pt-[50px] h-[calc(100vh_-_79px)]'>
       <h1 className='mb-[40px] text-center font-bold text-2xl'>User search service</h1>
@@ -27,21 +40,8 @@ function MainPage(): JSX.Element {
            />
           </label>
         </form>
-        { isLoading && <p>Loading...</p>}
-        {users &&<ul className='max-h-[420px] overflow-y-auto border rounded'>
-          {
-            users.map((user) => {
-              return (
-                <li
-                  className='p-[4px] hover:bg-slate-100 cursor-pointer'
-                  key={user.id}
-                >
-                  {user.login}
-                </li>
-              );
-            })
-          }
-        </ul>}
+        { isUserListOpen && <UsersList value={search} onUserNameClick={usernameClickHandler} />}
+        { isRepoListOpen && <ReposList username={username} />}
       </section>
     </main>
   );

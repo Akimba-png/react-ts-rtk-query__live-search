@@ -6,4 +6,5 @@ export enum AppRoute {
 
 export enum ApiRoute {
   SearchUsers = 'search/users',
+  User = 'users/',
 }
