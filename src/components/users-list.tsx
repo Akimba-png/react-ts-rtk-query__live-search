@@ -16,7 +16,7 @@ function UsersList({value, onUserNameClick}: UsersListProps): JSX.Element {
     <>
       {isLoading && <p>Loading...</p>}
       {users && (
-        <ul className="max-h-[250px] overflow-y-auto border rounded">
+        <ul className="mb-[10px] max-h-[250px] overflow-y-auto border rounded">
           {users.map((user) => {
             return (
               <li
