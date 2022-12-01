@@ -12,7 +12,7 @@ function ReposList({username}: RepoListProps): JSX.Element {
       { isLoading && <p>Loading...</p> }
       { userRepos && !userRepos.length && <p className='text-lg'>Нет доступных репозиториев</p> }
       { userRepos && !!userRepos.length && <ul className='max-h-[255px] overflow-y-auto border rounded'>
-        {userRepos.map((repo) => <RepoItem repo={repo}/>)}
+        {userRepos.map((repo) => <RepoItem repo={repo} key={repo.id} />)}
       </ul> }
     </>
   );

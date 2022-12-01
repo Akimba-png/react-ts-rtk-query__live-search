@@ -1,4 +1,5 @@
 import { Repo } from '../types/Repo';
+import { FavoriteButton } from './favorite-button';
 
 type RepoItemProps = {
   repo: Repo,
@@ -6,7 +7,7 @@ type RepoItemProps = {
 
 function RepoItem({repo}: RepoItemProps): JSX.Element {
   return (
-    <li className='mb-[4px] p-[4px] pb-[6px] border' key={repo.id}>
+    <li className='mb-[4px] p-[4px] pb-[6px] border'>
       <a className='mb-[6px] block' href={repo.html_url} target='_blank'>
         <h2 className='mb-[2px] text-lg font-bold'>{repo.name}</h2>
         <p>
@@ -16,11 +17,7 @@ function RepoItem({repo}: RepoItemProps): JSX.Element {
         </p>
         <p className='italic'>{repo.description}</p>
       </a>
-      <button
-        className='px-[10px] py-[2px] border rounded bg-blue-500 text-white'
-      >
-        В избранное
-      </button>
+      <FavoriteButton repo={repo} />
     </li>
   );
 }
