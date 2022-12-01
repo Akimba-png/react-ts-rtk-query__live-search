@@ -16,11 +16,11 @@ function UsersList({value, onUserNameClick}: UsersListProps): JSX.Element {
     <>
       {isLoading && <p>Loading...</p>}
       {users && (
-        <ul className="mb-[10px] max-h-[250px] overflow-y-auto border rounded">
+        <ul className='mb-[10px] max-h-[250px] overflow-y-auto border rounded'>
           {users.map((user) => {
             return (
               <li
-                className="p-[4px] hover:bg-slate-100 cursor-pointer"
+                className='p-[4px] hover:bg-slate-100 cursor-pointer'
                 key={user.id}
                 onClick={onUserNameClick(user.login)}
               >
