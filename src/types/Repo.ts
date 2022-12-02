@@ -101,3 +101,12 @@ export interface Repo {
   updated_at: Date;
   permissions: Permissions;
 }
+
+export type AdaptedRepo = {
+  id: number,
+  name: string,
+  forksCount: number,
+  watchersCount: number,
+  htmlUrl: string,
+  description: string,
+}

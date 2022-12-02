@@ -1,15 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Repo } from '../../types/Repo';
+import { AdaptedRepo } from '../../types/Repo';
 
-type InitialState = Repo[];
-const initialState = [] as InitialState
+type InitialState = {
+  favorites: AdaptedRepo[],
+};
+
+const initialState: InitialState = {
+  favorites: [] as AdaptedRepo[],
+};
 
 export const favoriteSlice = createSlice({
   name: 'favorite-reducer',
   initialState,
   reducers: {
-    addToFavorites: (state, action: PayloadAction<Repo>) => [...state, action.payload ],
-    removeFromFavorites: (state, action: PayloadAction<Repo>) => state.filter((e) => e.id !== action.payload.id),
+    addToFavorites: (state, action: PayloadAction<AdaptedRepo>) => {
+      state.favorites.push(action.payload);
+    },
+    removeFromFavorites: (state, action: PayloadAction<number>) => {
+      state.favorites = state.favorites.filter((repo) => repo.id !== action.payload);
+    },
   },
 });
 

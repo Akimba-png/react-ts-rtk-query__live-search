@@ -1,18 +1,20 @@
-import { Repo } from '../types/Repo';
+import { AdaptedRepo } from '../types/Repo';
 import { useAppSelector, useAppDispatch } from './../store/store';
 import { addToFavorites, removeFromFavorites } from './../store/reducers/favorite-slice';
 
 type FavoriteButtonProps = {
-  repo: Repo,
+  repo: AdaptedRepo,
 }
 function FavoriteButton({repo}: FavoriteButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const isFavorite = useAppSelector((state) => state['favorite-reducer']).includes(repo);
+  const favorites = useAppSelector((state) => state['favorite-reducer'].favorites);
+  const isFavorite = favorites.some((favRepo) => favRepo.id === repo.id)
+
   if (isFavorite) {
     return (
       <button
         className='px-[10px] py-[2px] border border-blue-500 rounded text-blue-500'
-        onClick={() => dispatch(removeFromFavorites(repo))}
+        onClick={() => dispatch(removeFromFavorites(repo.id))}
       >
         Удалить из избранного
       </button>

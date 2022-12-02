@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { User, SearchResponse } from '../../types/User';
+import { AdaptedRepo, Repo } from '../../types/Repo';
+import { adaptRepoToClient } from '../../utils';
 import { ApiRoute } from '../../const';
-import { Repo } from '../../types/Repo';
 
 const BASE_URL = 'https://api.github.com/';
 const ITEMS_COUNT = 15;
@@ -24,13 +25,16 @@ export const searchApi = createApi({
         return response.items;
       },
     }),
-    getUserRepo: builder.query<Repo[], string>({
+    getUserRepo: builder.query<AdaptedRepo[], string>({
       query: (username) => ({
         url: `${ApiRoute.User}${username}/repos`,
         params: {
           per_page: ITEMS_COUNT,
         },
       }),
+      transformResponse: (response: Repo[]) => {
+        return response.map((repo) => adaptRepoToClient(repo));
+      },
     }),
   }),
 });
