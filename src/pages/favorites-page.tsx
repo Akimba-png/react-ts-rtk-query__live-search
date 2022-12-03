@@ -10,7 +10,7 @@ function FavoritesPage(): JSX.Element {
         {!favorites.length && <p>Нет избранных репозиториев</p>}
         <ul>
           {
-            favorites.map((item) => <RepoItem repo={item}/>)
+            favorites.map((item) => <RepoItem repo={item} key={item.id} />)
           }
         </ul>
       </section>

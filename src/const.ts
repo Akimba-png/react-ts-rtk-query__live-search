@@ -8,3 +8,5 @@ export enum ApiRoute {
   SearchUsers = 'search/users',
   User = 'users/',
 }
+
+export const FAVORITE_KEY = 'favorite-key';
